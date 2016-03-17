@@ -27,5 +27,11 @@ Route::get('/', function () {
 */
 
 Route::group(['middleware' => ['web']], function () {
-    //
+    Route::get("{token}", "ApiController@redirectExternal");
 });
+
+Route::group(['prefix' => 'api'], function () {
+    Route::get("shorten", "ApiController@shorten");
+});
+
+?>
