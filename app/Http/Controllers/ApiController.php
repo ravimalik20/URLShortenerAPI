@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 use App\Models\Url;
+use App\Models\UrlRequest;
 
 use \Redirect;
 
@@ -48,6 +49,10 @@ class ApiController extends Controller
     {
         $url = Url::where("shortened_url", $token)
             ->first();
+
+        $ip_address = $request->ip();
+
+        UrlRequest::record($url, $ip_address);
 
         if (!$url) {
             $response = [
